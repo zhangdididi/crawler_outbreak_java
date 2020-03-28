@@ -17,6 +17,30 @@ public class ProjectDao {
 
     }
 
+    //首先删除当天数据库国家表的内容
+    public void deleteCountryTable() {
+        Connection connection = DBUtil.getConnection();
+        PreparedStatement statement = null;
+        String sql = "delete from country where date=?";
+        try {
+            statement = connection.prepareStatement(sql);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+            String nowTime = simpleDateFormat.format(System.currentTimeMillis());
+            statement.setString(1, nowTime);
+
+            int ret = statement.executeUpdate();
+            if (ret <= 0) {
+                System.out.println("当前数据库删除country数据失败！！！");
+                return;
+            }
+            System.out.println("删除country 数据成功！！！");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBUtil.close(connection, statement, null);
+        }
+    }
+
     //保存 Country 对象到数据库中
     public void saveToCountryTable(Country country) {
         Connection connection = DBUtil.getConnection();
