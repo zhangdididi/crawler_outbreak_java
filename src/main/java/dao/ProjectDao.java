@@ -16,6 +16,30 @@ public class ProjectDao {
         System.out.println(countries.toString());
 
     }
+    
+    //删除城市表中的当天信息
+    public void deleteCityTable() {
+        Connection connection = DBUtil.getConnection();
+        PreparedStatement statement = null;
+        String sql = "delete from city where date = ?";
+        try {
+            statement = connection.prepareStatement(sql);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+            String nowTime = simpleDateFormat.format(System.currentTimeMillis());
+            statement.setString(1, nowTime);
+
+            int ret = statement.executeUpdate();
+            if (ret <= 0) {
+                System.out.println("当前数据库删除city数据失败！！！");
+                return;
+            }
+            System.out.println("删除city 数据成功！！！");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBUtil.close(connection, statement, null);
+        }
+    }
 
     //首先删除当天数据库国家表的内容
     public void deleteCountryTable() {
