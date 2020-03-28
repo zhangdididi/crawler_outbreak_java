@@ -28,6 +28,10 @@ public class ThreadCrawler extends Crawler {
         ExecutorService executorService = Executors.newFixedThreadPool(20);
         List<Future<?>> taskResults = new ArrayList<>();
         ProjectDao projectDao = new ProjectDao();
+        
+        //先删除当天数据库的内容，然后再进行保存，以保证实时数据的更新
+        projectDao.deleteCityTable();
+        projectDao.deleteCountryTable();
 
         for (Country country : countries) {
             //保存一个线程的工作进度
