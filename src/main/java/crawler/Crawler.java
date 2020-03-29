@@ -117,10 +117,7 @@ public class Crawler {
     }
 
 
-    /**
-     *解析数据到国家的数组列表中
-     *
-     */
+    //解析数据到国家的数组列表中
     public ArrayList<Country> parseCountryList(ArrayList<Object>  allCountries)  {
         ArrayList<Country> result = new ArrayList<>();
 
