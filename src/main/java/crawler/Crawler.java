@@ -90,9 +90,7 @@ public class Crawler {
     }
 
 
-    /**
-     * 将获取到的页面内容转换成JSON格式的字符串
-     */
+    //将获取到的页面内容转换成JSON格式的字符串
     public String getJsonString(String dataString) {
         //去除前面多余的内容
         int startIndex = dataString.indexOf('(');
@@ -108,9 +106,7 @@ public class Crawler {
     }
 
 
-    /**
-     * 解析字符串，得到包含所有境外国家信息的数组列表
-     */
+    //解析字符串，得到包含所有境外国家信息的数组列表
     public ArrayList<Object> getAllCountriesArray(String jsonString) {
         Type type = new TypeToken<HashMap<String, ?>>(){}.getType();
         HashMap<String, ?> map = gson.fromJson(jsonString, type);
